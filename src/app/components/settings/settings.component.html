@@ -1,0 +1,67 @@
+<div class="content" *ngIf="user">
+    <div class="name-wrapper">
+        <h1>{{user.email}}</h1>
+    </div>
+    <div class="content-wrapper">
+        <div class="tabs">
+            <button
+                [class.active]="tab === 'address'"
+                (click)="tab = 'address'">
+                    <img src="../../../assets/icons/address.svg" alt="">
+            </button>
+            <button 
+                [class.active]="tab === 'card'" 
+                (click)="tab = 'card'">
+                    <img src="../../../assets/icons/card.svg" alt="">
+            </button>
+            <button 
+                [class.active]="tab === 'archive'" 
+                (click)="tab = 'archive'">
+                    <img src="../../../assets/icons/archive.svg" alt="">
+            </button>
+        </div>
+        <div class="content">
+            <div *ngIf="tab === 'address'" class="address">
+                <h2>Address</h2>
+                <app-form-address (formChanged)="addressFormChanged($event)" [address]="user.address"></app-form-address>
+                <button
+                    [disabled]="addressForm.invalid || addressForm.pristine"
+                    (click)="setAddress()"
+                    class="save"
+                >Save</button>
+            </div>
+            <div *ngIf="tab === 'card'" class="card">
+                <h2>Card</h2>
+                <app-form-card (formChanged)="cardFormChanged($event)" [card]="user.card"></app-form-card>
+                <button
+                    [disabled]="cardForm.invalid || cardForm.pristine"
+                    (click)="setCard()"
+                    class="save" 
+                >Save</button>
+            </div>
+            <div *ngIf="tab === 'archive'" class="archive">
+                <h2>Archive</h2>
+                <div *ngIf="user.archive" class="items">
+                    <div *ngFor="let item of user.archive.reverse()" class="item">
+                        <a routerLink="/product-detail/{{item.id}}" class="img-anchor">
+                            <img
+                                [src]="item.image | getDownloadURL"                     
+                                alt=""
+                            >
+                        </a>
+                        <div class="description">
+                            <p class="title">
+                                <a href="">{{item.model}}</a> 
+                                <span>{{item.price * item.quantity}}$</span>
+                            </p>
+                            <p>{{item.description}}</p>
+                            <p class="quantity">Count: <span>{{item.quantity}}</span></p>
+                            <p class="price">Price: <span>{{item.price}}$</span></p>
+                            <p class="date">{{item.date | date:'medium'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

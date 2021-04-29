@@ -1,0 +1,87 @@
+<form [formGroup]="form" *ngIf="filters" #mainForm>
+
+    <!-- <div formGroupName="category">
+        <p>Category</p>
+        <label><input
+            formControlName="laptop"
+            name="category"
+            value="laptop"
+            type="checkbox"
+            > Laptops</label>
+        <label><input
+            formControlName="phone"
+            name="category"
+            value="phone"
+            type="checkbox"
+            > Phones</label>
+        <label><input
+            formControlName="tablet"
+            name="category"
+            value="tablet"
+            type="checkbox"
+            > Tablets</label>
+    </div> -->
+
+    <!-- <div *ngFor="let group of filters" [formGroupName]="group.name">
+        <p>{{group.title}}</p>
+        <label *ngFor="let n of group.labels; let i = index">
+            <input
+            [type]="group.type"
+            [formControlName]="group.controls[i]"
+            >
+            {{n}}
+        </label>
+    </div> -->
+
+    <!-- <p>Category</p>
+    <label><input 
+        (click)="checkboxHandler($event)"
+        name="category"
+        value="laptop" 
+        type="checkbox"
+        > Laptops</label>
+    <label><input 
+        (click)="checkboxHandler($event)" 
+        name="category"
+        value="phone" 
+        type="checkbox"
+        > Phones</label>
+    <label><input 
+        (click)="checkboxHandler($event)"
+        name="category"
+        value="tablet" 
+        type="checkbox"
+        > Tablets</label>
+
+    <p>Brand</p>
+    <label><input 
+        (click)="checkboxHandler($event)"
+        name="brand" 
+        value="ASUS" 
+        type="checkbox"
+        > ASUS</label>
+    <label><input 
+        (click)="checkboxHandler($event)"
+        name="brand" 
+        value="Lenovo" 
+        type="checkbox"
+        > Lenovo</label>
+    <label><input 
+        (click)="checkboxHandler($event)"
+        name="brand" 
+        value="Xiaomi" 
+        type="checkbox"
+        > Xiaomi</label>
+
+    <p>Price</p>
+    <input formControlName="price" name="price" value="start" type="number">
+    <input name="price" value="end" type="number">
+    <p>Year</p>
+    <input name="year" value="start" type="number">
+    <input name="year" value="end" type="number">
+    <p>CPU model</p>    
+    <label><input name="CPU.model" value="Intel" type="checkbox"> Intel</label>
+    <label><input name="CPU.model" value="Qualcomm" type="checkbox"> Qualcomm</label>
+    <label><input name="CPU.model" value="AMD" type="checkbox"> AMD</label>
+    <label><input name="CPU.model" value="MediaTek" type="checkbox"> MediaTek</label> -->
+</form>

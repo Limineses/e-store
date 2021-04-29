@@ -1,0 +1,49 @@
+<section *ngIf="products && products.length !== 0">
+    <div class="column property">
+        <div class="top-section">
+            <div class="buttons-wrapper">
+                <button
+                    (click)="goBack()"
+                    class="go-back"    
+                >< Go back</button>
+                <button
+                    (click)="deleteAll()"
+                    class="compare-delete-all"    
+                >Clear compare</button>
+            </div>
+        </div>
+        <div *ngFor="let spec of products[0].technicalSpecifications | keyvalue">
+            <h3 class="title">{{spec.key}}</h3>
+            <div *ngFor="let val of toObject(spec.value) | keyvalue" class="detail">
+                <span class="property">{{val.key}}</span>
+            </div>
+        </div>        
+    </div>
+
+
+    <div class="products" #prod>
+        <div class="column" *ngFor="let prod of products">
+            <div class="top-section">
+                <div class="img-wrapper">
+                    <img [src]="prod.images[0] | getDownloadURL" alt="" >
+                    <button *ngIf="products.length > 2" (click)="deleteItem(prod.id)">&times;</button>
+                </div>
+                <div class="model">
+                    <span>{{prod.model}}</span>
+                    <span class="price">{{prod.price}}$</span>
+                </div>
+            </div>
+            <div *ngFor="let spec of prod.technicalSpecifications | keyvalue">
+                <h3 class="title hide"><span>{{spec.key}}</span></h3>
+                <div 
+                [class.max]="checkMax(spec.key, val.key, val.value)"
+                *ngFor="let val of toObject(spec.value) | keyvalue" 
+                class="detail"
+                [title]="val.value"
+                >
+                    {{val.value}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

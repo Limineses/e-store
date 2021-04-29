@@ -1,0 +1,46 @@
+<!-- <section *ngIf="product"> -->
+<section>
+    <h1>{{product.model}} <span>{{product.price}}$</span></h1>
+    <div class="short-description">
+        <div class="slider">
+            <div #list class="slider-list">
+                <img [src]="product.images[0] | getDownloadURL" alt="">
+                <img [src]="product.images[1] | getDownloadURL" alt="">
+                <img [src]="product.images[2] | getDownloadURL" alt="">
+            </div>
+        </div>
+        <div>
+            <p>{{product.description}}</p>
+            <div #images class="images">
+                <img (click)="move(0)" [src]="product.images[0] | getDownloadURL" alt="" class="active">
+                <img (click)="move(1)" [src]="product.images[1] | getDownloadURL" alt="">
+                <img (click)="move(2)" [src]="product.images[2] | getDownloadURL" alt="">
+            </div>
+            <div class="buttons">
+                <button 
+                    *ngIf="!checkBasket(product.id)" 
+                    (click)="addInBasket(product)" 
+                    class="basket"></button>
+                <button 
+                    *ngIf="checkBasket(product.id)" 
+                    (click)="addInBasket(product)" 
+                    class="basket basket-remove"></button>
+
+                <button class="favorites"></button>
+
+                <button *ngIf="!checkCompare(product.id)" (click)="addInCompare(product)" class="compare"></button>
+                <button *ngIf="checkCompare(product.id)" (click)="deleteFromCompare(product.id)" class="compare compare-delete"></button>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngFor="let spec of product.technicalSpecifications | keyvalue">
+        <h3 class="title">{{spec.key}}</h3>
+    
+        <div *ngFor="let val of toObject(spec.value) | keyvalue" class="detail">
+            <div class="property">{{val.key}}</div>
+            <div class="value">{{val.value}}</div>
+        </div>
+    </div>
+</section>
+<app-compare-notification></app-compare-notification>

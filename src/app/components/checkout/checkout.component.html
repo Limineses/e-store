@@ -1,0 +1,87 @@
+<div class="content" *ngIf="user && basket">
+    <h1 *ngIf="step < 4">Step {{step}} of 3</h1>
+
+    <div [ngSwitch]="step" class="steps-wrapper">       
+
+        <div *ngSwitchCase="1" class="step-1">
+            <h2>Enter the address</h2>
+            <app-form-address 
+                [address]="user.address" 
+                (formChanged)="addressFormChanged($event)"
+            ></app-form-address>
+            <div class="buttons-wrapper">
+                <div>
+                    <button (click)="back()">< Back</button>
+                    <button
+                        [disabled]="addressForm.invalid"
+                        (click)="next()"
+                    >Next ></button>            
+                </div>
+            </div>
+        </div>
+
+        <div *ngSwitchCase="2" class="step-2">
+            <h2>Enter the card</h2>
+            <app-form-card 
+                [card]="user.card"
+                (formChanged)="cardFormChanged($event)"
+            ></app-form-card>
+            <div class="buttons-wrapper">
+                <div>
+                    <button (click)="back()">< Back</button>
+                    <button 
+                        [disabled]="(cardForm.invalid && cardForm.dirty) || cardForm.value.number === ''" 
+                        (click)="next()"
+                    >Next ></button>            
+                </div>
+            </div>
+        </div>
+
+        <div *ngSwitchCase="3" class="step-3">
+            <h2>Check the information and buy</h2>
+            <p>
+                {{user.address.country}}, 
+                {{user.address.city}}, 
+                {{user.address.street}}
+                {{user.address.house}}, 
+                {{user.address.flat}}
+            </p>
+            <p>
+                **** **** **** {{user.card.number | slice:15:19}}
+            </p>
+            <div *ngIf="basket.items" class="total">
+                <span class="count">Count: {{basket.count}}</span>
+                <span class="price">{{basket.totalPrice}}$</span>
+            </div>
+            <div class="basket">
+                <div *ngFor="let n of basket.items" class="items">
+                    <img [src]="n.image | getDownloadURL" alt="">
+                    <div class="item-description">
+                        <a routerLink="/product-detail/{{n.id}}">
+                            <span>{{n.model}}</span>
+                            <span class="price">{{n.price * n.quantity}}$</span>
+                        </a>
+                        <p>{{n.description}}</p>
+                        <div class="quantity">
+                            <p>Count: <span>{{n.quantity}}</span></p>
+                            <p>Price: <span>{{n.price}}$</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons-wrapper">
+                <div>
+                    <button (click)="back()">< Back</button>           
+                </div>
+                <button (click)="buy()" class="buy">Buy</button>
+            </div>
+        </div>
+
+        <div *ngSwitchCase="4" class="step-4">
+            <div class="purchase-icon"></div>
+            <p class="purchase-message">Your purchase has been completed</p>
+            <p class="redirect-message">After <span>{{redirectTime}}</span> seconds, you will be redirected to the main page.</p>
+        </div>
+
+    </div>
+</div>

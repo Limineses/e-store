@@ -1,0 +1,47 @@
+<section>
+    <h2>CATALOG</h2>
+    <div class="wrapper">
+        <div class="filter">
+
+            <!-- <select>
+                <option>1</option>
+            </select>
+            <details>
+                <summary>Марка</summary>
+            </details> -->
+            <app-products-filter></app-products-filter>
+        </div>
+        <div class="products">
+            <div *ngFor="let product of pagination()" class="product">
+                <img [src]="product.images[0] | getDownloadURL" alt="" 
+                    routerLink="/product-detail/{{product.id}}">                    
+                <div class="product-description">
+                    <a routerLink="/product-detail/{{product.id}}">
+                        <span>{{product.model}}</span>
+                        <span class="price">{{product.price}}$</span>
+                    </a>
+                    <p>{{product.description}}</p>
+                    <div class="buttons">
+                        <button *ngIf="!checkBasket(product.id)" (click)="addInBasket(product)" class="basket"></button>
+                        <button *ngIf="checkBasket(product.id)" (click)="addInBasket(product)" class="basket basket-remove"></button>
+
+                        <button class="favorites"></button>
+
+                        <button *ngIf="!checkCompare(product.id)" (click)="addInCompare(product)" class="compare"></button>
+                        <button *ngIf="checkCompare(product.id)" (click)="deleteFromCompare(product.id)" class="compare compare-delete"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination">
+                <div 
+                    *ngFor="let item of pages(); let i = index" 
+                    [class.active]="i+1==page"
+                    (click)="setPage(i+1)"
+                >
+                    {{i+1}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-compare-notification></app-compare-notification>

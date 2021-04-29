@@ -1,0 +1,18 @@
+<div class="slider">
+    <div class="slider-list" #list>
+        <div routerLink="product-detail/21" class="slider-elem img_1"></div>
+        <div routerLink="product-detail/17" class="slider-elem img_2"></div>
+        <div routerLink="product-detail/5" class="slider-elem img_3"></div>
+        <div routerLink="product-detail/2" class="slider-elem img_4"></div>
+    </div>
+    <div class="slider-buttons">
+        <button class="prev" (click)="move(-1)">&lt;</button>
+        <button class="next" (click)="move(1)">&gt;</button>
+    </div>
+    <div class="slider-dots" #dots>
+        <div class="active"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>

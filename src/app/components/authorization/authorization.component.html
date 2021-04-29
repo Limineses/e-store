@@ -1,0 +1,28 @@
+<section>
+    <div class="content-wrapper">
+        <div class="tabs">
+            <button class="login" 
+                [class.active]="tab === 'login'"
+                (click)="tab = 'login'">Login</button>
+            <button 
+                [class.active]="tab === 'registration'" 
+                (click)="tab = 'registration'">Registration</button>
+        </div>
+        <div class="content">
+            <div *ngIf="tab === 'login'" class="login">
+                <label for="login-email">Email:</label>
+                <input [(ngModel)]="login.email" id="login-email" type="email">
+                <label for="login-password">Password:</label>
+                <input [(ngModel)]="login.password" id="login-password" type="password">
+                <button (click)="signIn()">Login</button>
+            </div>
+            <div *ngIf="tab === 'registration'" class="registration">
+                <label for="registration-email">Email:</label>
+                <input [(ngModel)]="registration.email" id="registration-email" type="email">
+                <label for="registration-password">Password:</label>
+                <input [(ngModel)]="registration.password" id="registration-password" type="password">
+                <button (click)="signUp()">Registration</button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,106 @@
+section {
+    h1 {
+        display: flex;
+        justify-content: space-between;
+        padding: .7rem 3rem;
+        font-size: 2rem;
+    }
+    .short-description {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        .slider {
+            width: 45vw;
+            height: 45vh;
+            margin-left: 1rem;
+            overflow: hidden;
+
+            .slider-list {
+                height: 100%;
+                display: flex;
+
+                img {
+                    width: 45vw;
+                    height: auto;
+                    flex-shrink: 0;
+                    object-fit: contain;
+                }
+            }
+        }
+        div {
+            width: 50%;
+            .images {
+                margin-top: 1rem;
+                img {
+                    width: 5rem;
+                    height: 5rem;
+                    padding: .5rem;
+                    object-fit: contain;
+                }
+                .active {
+                    border: 2px solid rgb(255, 255, 17);
+                }
+            }
+            .buttons {
+                margin-top: 3rem;
+
+                button {
+                    width: 5rem;
+                    height: 3rem;
+                    margin-right: 1.5rem;
+                    border: none;
+                    border-radius: 5%;
+                    font-size: 1.1rem;
+                    color: #fff;
+                    cursor: pointer;
+                }
+                button:hover {
+                    opacity: .7;
+                }
+                .basket {                    
+                    background: url('../../../assets/icons/basket-add.svg') center center no-repeat #e70;
+                    background-size: 80% 80%;
+                }
+                .basket-remove {
+                    background-image: url('../../../assets/icons/basket-remove.svg');
+                }
+                .favorites {
+                    background-color: #2b8000;
+                    background: url('../../../assets/icons/favorites-add.svg') center center no-repeat #2b8000;
+                    background-size: 80% 80%;
+                }
+                .compare {
+                    background: url('../../../assets/icons/compare-add.svg') center center no-repeat #fddd3a;
+                    background-size: 80% 80%;
+                }
+                .compare-delete {
+                    background-image: url('../../../assets/icons/compare-delete.svg');
+                }
+            }
+        }
+    }    
+    .title {
+        padding: .7rem 3rem;
+        text-transform: capitalize;
+        border-bottom: 1px solid #ccc;
+        background-color: #f3f3f3;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+    .detail {
+        display: flex;
+        padding: .7rem 3rem;
+        border-bottom: 1px solid #eee;
+        font-size: 1.1rem;
+
+        .property {
+            width: 50%;
+            text-transform: capitalize;        
+        }
+        .value {
+            font-weight: 600;
+        }    
+    }
+}
