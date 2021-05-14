@@ -1,0 +1,18 @@
+<div class="content" *ngIf="length">
+    <div class="wrapper" *ngIf="pages().length > 1">
+        <div *ngIf="page > 2 + around && max != around * 2 + 1" class="side">
+            <div (click)="setPage(1)" class="page">1</div>
+            <div class="dots active">...</div>
+        </div>
+        <div
+            *ngFor="let item of pages()"
+            [class.active]="item==page"
+            (click)="setPage(item)"
+            class="page"
+        >{{item}}</div>
+        <div *ngIf="page < max - (around + 1) && max != around * 2 + 1" class="side">
+            <div class="dots active">...</div>
+            <div (click)="setPage(max)" class="page">{{max}}</div>
+        </div>
+    </div>
+</div>

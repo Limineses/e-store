@@ -1,48 +1,34 @@
 <header>
     <div class="header_logo" routerLink="/">
-        <img src="../assets/logo.png" alt="">
+        <span>E</span>Store
     </div>
     <div class="search">
         <app-search></app-search>
     </div>
     <div class="header_buttons">
-        <a routerLink="/basket"><img src="../assets/icons/cart.svg" alt=""></a>
-        <!-- <button *ngIf="auth.user | async as user; else test">
-            <img src="../../../assets/icons/logout.svg" alt="">
-        </button> -->
-        <div *ngIf="auth.user | async as user; else test" class="nav_li_catalog">
+        <a class="basket" routerLink="/basket">
+            <img src="../assets/icons/cart.svg" alt="">
+            <div class="basket-count" *ngIf="basketItemsCount">{{basketItemsCount}}</div>
+        </a>
+        <div *ngIf="auth.user | async as user; else login" class="nav_li_catalog">
             <span class="btn" routerLink="/settings">
                 <img src="../../../assets/icons/user-settings.svg" alt="">
             </span>
             <span class="btn" (click)="logout()">
                 <img src="../../../assets/icons/logout.svg" alt="">
             </span>
-            <!-- <div #drop class="dropdown">
-                <a routerLink="/settings">Settings</a>
-                <a (click)="logout()">Exit</a>
-            </div> -->
         </div>
-        <ng-template #test>
+        <ng-template #login>
             <a routerLink="/authorization"><img src="../assets/icons/login.svg" alt=""></a>
         </ng-template>
     </div>
 </header>
 <nav>
     <ul>
-        <li class="nav_li_catalog" routerLinkActive="active_link">
-            <span class="btn">Catalog</span>
-            <div #drop class="dropdown">
-                <a 
-                    *ngFor="let item of ['laptops', 'phones', 'tablets']"
-                    routerLink="/products"
-                    [queryParams]="{'category':item, 'page': 1}"
-                >{{item}}</a>
-            </div>
-        </li>
-        <li routerLink="/about" routerLinkActive="active_link">About</li>
-        <li routerLink="/delivery" routerLinkActive="active_link">Delivery</li>
-        <li routerLink="/payment" routerLinkActive="active_link">Payment</li>
-        <li routerLink="/warranty" routerLinkActive="active_link">Warranty</li>
-        <li routerLink="/contacts" routerLinkActive="active_link">Contacts</li>
+        <li class="nav_li_catalog" (click)="navigate(null)">Catalog</li>
+        <li (click)="navigate('laptop')">Laptops</li>
+        <li (click)="navigate('phone')">Phones</li>
+        <li (click)="navigate('tablet')">Tablets</li>
+        <li (click)="navigate('ebook')">Ebook</li>
     </ul>
 </nav>

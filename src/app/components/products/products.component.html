@@ -2,45 +2,45 @@
     <h2>CATALOG</h2>
     <div class="wrapper">
         <div class="filter">
-
-            <!-- <select>
-                <option>1</option>
-            </select>
-            <details>
-                <summary>Марка</summary>
-            </details> -->
             <app-products-filter></app-products-filter>
         </div>
-        <div class="products">
-            <div *ngFor="let product of pagination()" class="product">
-                <img [src]="product.images[0] | getDownloadURL" alt="" 
-                    routerLink="/product-detail/{{product.id}}">                    
-                <div class="product-description">
-                    <a routerLink="/product-detail/{{product.id}}">
-                        <span>{{product.model}}</span>
-                        <span class="price">{{product.price}}$</span>
-                    </a>
-                    <p>{{product.description}}</p>
-                    <div class="buttons">
-                        <button *ngIf="!checkBasket(product.id)" (click)="addInBasket(product)" class="basket"></button>
-                        <button *ngIf="checkBasket(product.id)" (click)="addInBasket(product)" class="basket basket-remove"></button>
-
-                        <button class="favorites"></button>
-
-                        <button *ngIf="!checkCompare(product.id)" (click)="addInCompare(product)" class="compare"></button>
-                        <button *ngIf="checkCompare(product.id)" (click)="deleteFromCompare(product.id)" class="compare compare-delete"></button>
+        <div class="products" *ngIf="products$">
+            <ng-container *ngFor="let product of products$; let i = index">
+                <div class="product" *ngIf="i >= startIndex && i < endIndex">
+                    <img [src]="product.images[0] | getDownloadURL" alt=""
+                        routerLink="/product-detail/{{product.id}}">
+                    <div class="product-description">
+                        <a routerLink="/product-detail/{{product.id}}">
+                            <span>{{product.model}}</span>
+                            <span class="price">{{product.price}}$</span>
+                        </a>
+                        <p>{{product.description}}</p>
+                        <div class="buttons">
+                            <button *ngIf="!checkBasket(product.id)" (click)="addInBasket(product)" class="basket"></button>
+                            <button *ngIf="checkBasket(product.id)" (click)="addInBasket(product)" class="basket basket-remove"></button>
+                            
+                            <button *ngIf="!checkCompare(product.id)" (click)="addInCompare(product)" class="compare"></button>
+                            <button *ngIf="checkCompare(product.id)" (click)="deleteFromCompare(product.id)" class="compare compare-delete"></button>
+                        </div>
+                        <div class="reviews">
+                            <div class="rating" *ngIf="product.reviews">
+                                <app-view-rating [rating]="product.reviews.totalRating"></app-view-rating>
+                            </div>
+                            <a routerLink="/reviews/{{product.id}}" class="reviews-link">
+                                <span *ngIf="!product.reviews">Write a review first!</span>
+                                <span *ngIf="product.reviews">{{product.reviews.reviewsItems.length}} reviews</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="pagination">
-                <div 
-                    *ngFor="let item of pages(); let i = index" 
-                    [class.active]="i+1==page"
-                    (click)="setPage(i+1)"
-                >
-                    {{i+1}}
-                </div>
-            </div>
+            </ng-container>
+            <div *ngIf="products$.length === 0" class="no-results">NO SEARCH RESULTS</div>
+            <app-pagination 
+                [around]="2" 
+                [countOnPage]="7" 
+                [length]="products$.length"
+                (pageChanged)="setPaginationIndex($event)"
+            ></app-pagination>
         </div>
     </div>
 </section>

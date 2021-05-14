@@ -1,0 +1,34 @@
+<div>
+    <form [formGroup]="form">
+        <label>Country
+            <input type="text" maxlength="30" formControlName="country">
+            <span class="error-message" *ngIf="form.controls.country.invalid && form.controls.country.dirty">
+                Country badly formatted. 
+            </span>
+        </label>
+        <label>City
+            <input type="text" maxlength="20" formControlName="city">
+            <span class="error-message" *ngIf="form.controls.city.invalid && form.controls.city.dirty">
+                City badly formatted. 
+            </span>
+        </label>
+        <label>Street
+            <input type="text" maxlength="20" formControlName="street">
+            <span class="error-message" *ngIf="form.controls.street.invalid && form.controls.street.dirty">
+                Street badly formatted. 
+            </span>
+        </label>
+        <label>House
+            <input type="text" maxlength="8" formControlName="house">
+            <span class="error-message" *ngIf="form.controls.house.invalid && form.controls.house.dirty">
+                House badly formatted. 
+            </span>
+        </label>
+        <label>Flat
+            <input type="text" maxlength="5" formControlName="flat">
+            <span class="error-message" *ngIf="form.controls.flat.invalid && form.controls.flat.dirty">
+                Flat badly formatted. 
+            </span>
+        </label>
+    </form>
+</div>

@@ -1,0 +1,24 @@
+.content {
+    display: inline-block;
+    .rating-blank::before {
+        content: '★★★★★';
+    }
+    .rating-blank {
+        position: relative;
+        font-size: 100%;
+        color: lightgrey;
+            
+        .rating-fill::before {
+            content: '★★★★★';
+            color: gold;
+        }
+        .rating-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            overflow: hidden;
+        }            
+    }        
+}

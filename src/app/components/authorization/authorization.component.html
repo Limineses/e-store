@@ -3,26 +3,60 @@
         <div class="tabs">
             <button class="login" 
                 [class.active]="tab === 'login'"
-                (click)="tab = 'login'">Login</button>
+                (click)="changeTab('login')">Login</button>
             <button 
                 [class.active]="tab === 'registration'" 
-                (click)="tab = 'registration'">Registration</button>
+                (click)="changeTab('registration')">Registration</button>
         </div>
         <div class="content">
-            <div *ngIf="tab === 'login'" class="login">
-                <label for="login-email">Email:</label>
-                <input [(ngModel)]="login.email" id="login-email" type="email">
-                <label for="login-password">Password:</label>
-                <input [(ngModel)]="login.password" id="login-password" type="password">
-                <button (click)="signIn()">Login</button>
-            </div>
-            <div *ngIf="tab === 'registration'" class="registration">
-                <label for="registration-email">Email:</label>
-                <input [(ngModel)]="registration.email" id="registration-email" type="email">
-                <label for="registration-password">Password:</label>
-                <input [(ngModel)]="registration.password" id="registration-password" type="password">
-                <button (click)="signUp()">Registration</button>
-            </div>
+            <form (ngSubmit)="signIn()" *ngIf="tab === 'login'" [formGroup]="login">
+                <label>
+                    Email:
+                    <input type="email" formControlName="email">
+                    <span class="error-message" *ngIf="
+                        login.controls.email.invalid && 
+                        login.controls.email.dirty"
+                    >Email badly formatted. </span>
+                </label>
+                <label>
+                    Password:
+                    <input type="password" formControlName="password">
+                    <span class="error-message" *ngIf="
+                        login.controls.password.invalid && 
+                        login.controls.password.dirty"
+                    >The minimum password length is 6 characters. </span>
+                </label>
+                <input type="submit" value="Login" [disabled]="login.invalid">
+                <button (click)="loginWithGoogle()" class="auth-with-google">Login with Google</button>
+            </form>
+            <form (ngSubmit)="signUp()" *ngIf="tab === 'registration'" [formGroup]="registration">
+                <label>
+                    Email:
+                    <input type="email" formControlName="email">
+                    <span class="error-message" *ngIf="
+                        registration.controls.email.invalid && 
+                        registration.controls.email.dirty"
+                    >Email badly formatted. </span>
+                </label>
+                <label>
+                    Password:
+                    <input type="password" formControlName="password">
+                    <span class="error-message" *ngIf="
+                        registration.controls.password.invalid && 
+                        registration.controls.password.dirty"
+                    >The minimum password length is 6 characters. </span>
+                </label>
+                <label>
+                    Confirm password:
+                    <input type="password" formControlName="confirmPassword" [class.not-match]="registration.value.password !== registration.value.confirmPassword && registration.controls.confirmPassword.dirty">
+                    <span class="error-message" *ngIf="
+                        registration.value.password !== registration.value.confirmPassword &&
+                        registration.controls.confirmPassword.dirty &&
+                        registration.controls.password.valid"
+                    >Passwords don't match. </span>
+                </label>
+                <input type="submit" value="Registration" [disabled]="registration.invalid ||  registration.value.password !== registration.value.confirmPassword">
+            </form>
         </div>
     </div>
 </section>

@@ -1,0 +1,31 @@
+div {
+    width: 100%;
+    form {
+        display: flex;
+        flex-direction: column;
+        label {
+            height: 6rem;
+            font-weight: bold;
+    
+            input {
+                width: 100%;
+                margin-top: .5rem;
+                padding: .2rem .5rem;
+                font-size: 1.2rem;
+                border: 2px solid rgb(160, 160, 160);
+            }
+        }
+        .ng-valid.ng-dirty {
+            border: 2px solid green;
+        }
+        .ng-invalid.ng-dirty {
+            border: 2px solid red;
+        }
+        .error-message {
+            margin-top: 5px;
+            font-size: .8rem;
+            font-weight: normal;
+            color: red;
+        }
+    }
+}

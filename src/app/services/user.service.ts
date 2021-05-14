@@ -28,6 +28,10 @@ export class UserService {
     return this.user$.asObservable();
   }
 
+  setBasket(userId: string, basketId: string): void {
+    this.db.setBasket(userId, basketId);
+  }
+
   setArchive(items: BasketItem[]): void {
     const res: ArchiveItem[] = this.user.archive ? this.user.archive : [];
     items.reverse().forEach(item => {
@@ -65,6 +69,7 @@ export class UserService {
   }
 
   setCard(card: Card): void {
+    card.holder = card.holder.toUpperCase();
     this.db.setCard(card, this.userId);
   }
 

@@ -1,0 +1,29 @@
+form {
+    .group {
+        margin-bottom: .5rem;
+        p {
+            font-weight: 700;
+            margin-bottom: .2rem;
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            label {
+                margin-left: 1rem;
+                margin-bottom: .3rem;
+            }
+
+            label, input[type="checkbox"] {                
+                cursor: pointer;
+            }
+        }
+        .fork {
+            flex-direction: row;
+            input {
+                width: 100%;
+            }
+        }
+    }    
+}

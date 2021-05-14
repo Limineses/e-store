@@ -1,14 +1,30 @@
 <div class="content" *ngIf="user && basket">
-    <h1 *ngIf="step < 4">Step {{step}} of 3</h1>
+    <h1 *ngIf="step < 4">
+        Step {{step}} of 3. 
+        <span [ngSwitch]="step">
+            <ng-template ngSwitchCase="1">
+                Enter the address
+            </ng-template>
+            <ng-template ngSwitchCase="2">
+                Enter the card
+            </ng-template>
+            <ng-template ngSwitchCase="3">
+                Check information and buy
+            </ng-template>
+        </span>
+        
+    </h1>
 
     <div [ngSwitch]="step" class="steps-wrapper">       
 
         <div *ngSwitchCase="1" class="step-1">
-            <h2>Enter the address</h2>
-            <app-form-address 
-                [address]="user.address" 
-                (formChanged)="addressFormChanged($event)"
-            ></app-form-address>
+            <div class="address-form">
+                <app-form-address
+                    [address]="user.address"
+                    (formChanged)="addressFormChanged($event)"
+                ></app-form-address>
+                <label><input type="checkbox" [(ngModel)]="saveAddress"> Save</label>
+            </div>
             <div class="buttons-wrapper">
                 <div>
                     <button (click)="back()">< Back</button>
@@ -21,11 +37,13 @@
         </div>
 
         <div *ngSwitchCase="2" class="step-2">
-            <h2>Enter the card</h2>
-            <app-form-card 
-                [card]="user.card"
-                (formChanged)="cardFormChanged($event)"
-            ></app-form-card>
+            <div class="card-form">
+                <app-form-card
+                    [card]="user.card"
+                    (formChanged)="cardFormChanged($event)"
+                ></app-form-card>
+                <label><input type="checkbox" [(ngModel)]="saveCard"> Save</label>
+            </div>
             <div class="buttons-wrapper">
                 <div>
                     <button (click)="back()">< Back</button>
@@ -38,15 +56,16 @@
         </div>
 
         <div *ngSwitchCase="3" class="step-3">
-            <h2>Check the information and buy</h2>
-            <p>
+            <p class="address">
+                <span>Address: </span>
                 {{user.address.country}}, 
                 {{user.address.city}}, 
                 {{user.address.street}}
                 {{user.address.house}}, 
                 {{user.address.flat}}
             </p>
-            <p>
+            <p class="card">
+                <span>Card: </span>
                 **** **** **** {{user.card.number | slice:15:19}}
             </p>
             <div *ngIf="basket.items" class="total">

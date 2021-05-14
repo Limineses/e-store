@@ -1,0 +1,85 @@
+<div *ngIf="product" class="content">
+    <div class="product">
+        <img [src]="product.images[0] | getDownloadURL" alt="">
+        <div class="desctiption">
+            <div class="title">
+                <p>{{product.model}}</p>
+                <p>{{product.price}}$</p>
+            </div>
+            <p class="specs">{{product.description}}</p>
+            <div *ngIf="product.reviews" class="rating-wrapper">
+                <span class="rating">
+                    <app-view-rating [rating]="product.reviews.totalRating"></app-view-rating>
+                </span>
+                <span class="rating-number">({{product.reviews.totalRating.toFixed(1)}})</span>
+                <span class="reviews-count">{{product.reviews.reviewsItems.length}} reviews</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!product.reviews" class="no-reviews">No reviews. Write it first.</div>
+    <div class="reviews" *ngIf="product.reviews">
+        <ng-container *ngFor="let review of product.reviews.reviewsItems.reverse(); let i = index">
+            <div class="reviews-item" *ngIf="i >= startIndex && i < endIndex">
+                <div class="rating">
+                    <app-view-rating [rating]="review.rating"></app-view-rating>
+                </div>
+                <p class="message">
+                    {{review.message | slice:0:300}}<details *ngIf="review.message.length > 300">
+                        <summary></summary>{{review.message | slice:300}}
+                    </details>
+                </p>
+                <p class="name-date">
+                    <span class="name">{{review.name}}</span>
+                    <span class="date">{{review.date | date:'medium'}}</span>
+                </p>
+            </div>
+        </ng-container>
+        <div class="pagination">
+            <app-pagination
+                [around]="2"
+                [countOnPage]="5"
+                [length]="product.reviews.reviewsItems.length"
+                (pageChanged)="setPaginationIndex($event)"
+            ></app-pagination>
+        </div>
+    </div>
+    <div class="create-reviews">       
+        <form *ngIf="auth.user | async as user; else noAuth" [formGroup]="reviewForm" (ngSubmit)="addReview()">
+            <div class="rating">
+                <input type="radio" id="val-5" formControlName="rating" value="5">
+                <label for="val-5"></label>
+                <input type="radio" id="val-4" formControlName="rating" value="4">
+                <label for="val-4"></label>
+                <input type="radio" id="val-3" formControlName="rating" value="3">
+                <label for="val-3"></label>
+                <input type="radio" id="val-2" formControlName="rating" value="2">
+                <label for="val-2"></label>
+                <input type="radio" id="val-1" formControlName="rating" value="1">
+                <label for="val-1"></label>
+            </div>
+            <div>
+                <label>
+                    Your name: <input type="text" formControlName="name" maxlength="15">
+
+                    <span class="error-message" *ngIf="reviewForm.controls.name.hasError('minlength') && reviewForm.controls.name.dirty">
+                        Minimum of 3 characters. 
+                    </span>
+                </label>
+                <button type="submit" [disabled]="reviewForm.invalid">Send</button>
+            </div>
+            <label>Your message:
+                <span class="error-message" *ngIf="reviewForm.controls.message.hasError('minlength') && reviewForm.controls.message.dirty">
+                    Minimum of 5 characters. 
+                </span>
+                <textarea formControlName="message" maxlength="500"></textarea>
+            </label>    
+        </form>
+        <ng-template #noAuth class="no-user">
+            <div class="no-user">
+                <p>
+                    Only <a routerLink="/authorization">authorized</a> users can write reviews.
+                </p>
+            </div>
+        </ng-template>
+    </div>
+</div>

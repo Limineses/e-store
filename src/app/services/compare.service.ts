@@ -1,3 +1,4 @@
+import { NotificationsService } from './notifications.service';
 import { Product } from 'src/app/models/product';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
@@ -6,9 +7,11 @@ import { Observable, ReplaySubject } from 'rxjs';
   providedIn: 'root'
 })
 export class CompareService {
+
   private products$: ReplaySubject<Product[]> = new ReplaySubject(1);
   products: Product[] = [];
-  constructor() {
+
+  constructor(private notificationsService: NotificationsService) {
     this.onStart();
   }
 
@@ -28,10 +31,16 @@ export class CompareService {
   }
 
   addItem(prod: Product): void {
-    if (!this.checkCategory(prod) || this.products.length === 4) { return; }
+    if (!this.checkCategory(prod)) {
+      this.notificationsService.pushNotification('warning', 'Different categories.');
+      return;
+    }
+    if (this.products.length === 4) {
+      this.notificationsService.pushNotification('warning', 'Maximum of 4 products.');
+      return;
+    }
     this.products.push(prod);
-    const val = JSON.stringify(this.products); /////////////repeat
-    localStorage.setItem('EStore-compare', val);
+    this.setStorage();
     this.subjNext();
   }
 
@@ -39,8 +48,7 @@ export class CompareService {
     this.products = this.products.filter((item: Product) => {
       return item.id !== id;
     });
-    const val = JSON.stringify(this.products); /////////////repeat
-    localStorage.setItem('EStore-compare', val);
+    this.setStorage();
     this.subjNext();
   }
 
@@ -48,6 +56,11 @@ export class CompareService {
     this.products = [];
     localStorage.removeItem('EStore-compare');
     this.subjNext();
+  }
+
+  setStorage(): void {
+    const products = JSON.stringify(this.products);
+    localStorage.setItem('EStore-compare', products);
   }
 
   checkCategory(prod: Product): boolean {

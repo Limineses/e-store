@@ -1,11 +1,10 @@
-<section>
+<section *ngIf="basket && basket.count; else empty">
     <h1 *ngIf="basket.items">Basket</h1>
     <button *ngIf="basket.items" class="remove-all" (click)="deleteAll()">Remove All</button>
-    <button 
+    <button
         *ngIf="basket.items"
         [class.disabled]="!(auth.user | async)"
-        [disabled]="!(auth.user | async)"
-        routerLink="/checkout"
+        (click)="checkDisabled($event);"
         class="checkout">Checkout</button>
     <div *ngIf="basket.items" class="total">
         <span class="count">Count: {{basket.count}}</span>
@@ -20,18 +19,21 @@
                 <span class="price">{{n.price * n.quantity}}$</span>
             </a>
             <p>{{n.description}}</p>
-            <div class="quantity">                
+            <div class="quantity">     
                 <span>{{n.price}}$</span>
-                <button (click)="decrease(n)">-</button>
+                <button [class.disabled]="n.quantity === 1" (click)="decrease(n)">-</button>
                 <span>{{n.quantity}}</span>
-                <button (click)="increase(n)">+</button>
+                <button [class.disabled]="n.quantity === 10" (click)="increase(n)">+</button>
             </div>
             <div class="buttons">
                 <button (click)="deleteItem(n.id)" class="remove">Remove</button>
             </div>
         </div>
     </div>
-    <div *ngIf="!basket.items" class="basket-empty">
-        <span>The basket is empty</span>
-    </div>
 </section>
+<ng-template #empty>
+    <div class="basket-empty">
+        <div>Basket is empty</div>
+        <img src="../../../assets/images/basket_empty.jpg" alt="">
+    </div>
+</ng-template>

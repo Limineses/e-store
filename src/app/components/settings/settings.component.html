@@ -23,7 +23,9 @@
         <div class="content">
             <div *ngIf="tab === 'address'" class="address">
                 <h2>Address</h2>
-                <app-form-address (formChanged)="addressFormChanged($event)" [address]="user.address"></app-form-address>
+                <div class="address-form">
+                    <app-form-address (formChanged)="addressFormChanged($event)" [address]="user.address"></app-form-address>
+                </div>
                 <button
                     [disabled]="addressForm.invalid || addressForm.pristine"
                     (click)="setAddress()"
@@ -60,6 +62,10 @@
                             <p class="date">{{item.date | date:'medium'}}</p>
                         </div>
                     </div>
+                </div>
+                <div *ngIf="!user.archive" class="archive-empty">
+                    <span>Archive is empty</span>
+                    <img src="../../../assets/images/archive_empty.jpg" alt="">
                 </div>
             </div>
         </div>

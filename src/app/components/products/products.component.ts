@@ -1,9 +1,8 @@
+import { FilterService } from './../../services/filter.service';
 import { CompareService } from './../../services/compare.service';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
-import { DatabaseService } from './../../services/database.service';
 import { BasketService } from './../../services/basket.service';
 
 @Component({
@@ -11,32 +10,26 @@ import { BasketService } from './../../services/basket.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   products$!: Product[];
-  page = 1;
-  countOnPage = 7;
 
-  category?: string;
-  private querySubscription?: Subscription;
+  startIndex!: number;
+  endIndex!: number;
 
-  constructor(private route: ActivatedRoute,
-              private databaseService: DatabaseService,
-              private basketService: BasketService,
-              private router: Router,
-              private compareService: CompareService) { }
+  private subscriptions!: Subscription;
+
+  constructor(private basketService: BasketService,
+              private compareService: CompareService,
+              private filterService: FilterService) { }
 
   ngOnInit(): void {
-    this.querySubscription = this.route.queryParams.subscribe(
-      (queryParam: any) => {
-          this.category = queryParam['category'];
-          this.page = queryParam['page'];
-      }
-    );
-    this.getProducts();
+    this.subscriptions = this.filterService.getFilteredProducts().subscribe(res => this.products$ = res);
   }
 
-  getProducts(): void {
-    this.databaseService.getProducts().subscribe(res => this.products$ = res);
+  setPaginationIndex(data: number[]): void {
+    this.startIndex = data[0];
+    this.endIndex = data[1];
+    window.scrollTo({top: 0});
   }
 
   checkCompare(id: number): boolean {
@@ -59,38 +52,8 @@ export class ProductsComponent implements OnInit {
     this.basketService.addItem(product);
   }
 
-  pagination(): Product[] {
-    const endIndex = this.page * this.countOnPage;
-    const startIndex = endIndex - this.countOnPage;
-    const res =  this.products$.filter((prod: Product, i: number) => {
-      if (i < endIndex && i >= startIndex) {
-        return prod;
-      } else {
-        return;
-      }
-    });
-    return res;
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
-  pages(): number[] {
-    const n = Math.ceil(this.products$.length / this.countOnPage);
-    const arr = new Array(n);
-    return arr;
-  }
-
-  setPage(n: number): void {
-    if (n == this.page) {return;}
-    this.router.navigate(
-      [],
-      {
-        queryParams: {
-          "page" : n
-        }
-      }
-    );
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
 }

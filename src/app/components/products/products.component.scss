@@ -35,7 +35,8 @@ section {
                 cursor: pointer;
             }
 
-            .product-description {                
+            .product-description {
+                width: 100%;       
                 position: relative;
                 margin-left: 1rem;
                 a {
@@ -85,35 +86,31 @@ section {
                         background-image: url('../../../assets/icons/compare-delete.svg');
                     }
                 }
+                .reviews {
+                    display: flex;
+                    align-items: flex-end;
+                    margin-top: .5rem;
+                    .rating {
+                        margin-right: 1rem;
+                        font-size: 1.5rem;
+                        line-height: 1.5rem;
+                    }
+                    .reviews-link {
+                        font-weight: normal;
+                        text-decoration: underline;
+                        color: rgb(165, 165, 165);
+                    }
+                    .reviews-link:hover {
+                        color: rgb(100, 100, 100);
+                    }
+                }
 
             }
         }
-        .pagination {
-            display: flex;
-            justify-content: center;
-
-            div {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 2.5rem;
-                height: 2.5rem;
-                padding: .5rem;
-                margin-left: .3rem;
-                font-size: 1.3rem;
-                color: rgb(210, 210, 210);
-                border-radius: 50%;
-                background-color: rgb(245, 245, 245);
-            }
-            div:hover {
-                color: #000;
-                background-color: rgb(220, 220, 220);
-                cursor: pointer;
-            }
-            .active {
-                color: #000;
-                background-color: rgb(220, 220, 220);
-            }
+        .no-results {
+            font-size: 3rem;
+            text-align: center;
+            font-weight: 700;
         }
     }
 }

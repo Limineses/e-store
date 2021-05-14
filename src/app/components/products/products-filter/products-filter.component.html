@@ -1,0 +1,20 @@
+<form [formGroup]="form" *ngIf="filters">
+    <div *ngFor="let group of filters" [formGroupName]="group.name" class="group">
+        <p>{{group.title}}</p>
+        <div [class.fork]="group.type === 'number'">
+            <label *ngFor="let n of group.labels; let i = index" [ngSwitch]="group.type">
+                <input
+                    *ngSwitchCase="'number'"
+                    type="number"
+                    [formControlName]="group.controls[i]"
+                >
+                <input
+                    *ngSwitchCase="'checkbox'"
+                    type="checkbox"
+                    [formControlName]="group.controls[i]"
+                >
+                {{n}}
+            </label>
+        </div>
+    </div>
+</form>

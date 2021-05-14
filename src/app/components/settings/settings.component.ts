@@ -29,6 +29,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   setAddress(): void {
     this.userService.setAddress(this.addressForm?.value);
+    this.addressForm.markAsPristine();
+    this.addressForm.markAsUntouched();
+    this.addressForm.updateValueAndValidity();
   }
 
   cardFormChanged(form: FormGroup): void {
@@ -37,6 +40,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   setCard(): void {
     this.userService.setCard(this.cardForm?.value);
+    this.cardForm.markAsPristine();
+    this.cardForm.markAsUntouched();
+    this.cardForm.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {

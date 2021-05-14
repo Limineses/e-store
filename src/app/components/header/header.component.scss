@@ -6,13 +6,14 @@ header {
     align-items: center;
     background: linear-gradient(180deg, #dadada 20%, #ffffff 70%);
     .header_logo {
-        height: 60%;
         width: 20%;
         cursor: pointer;
-
-        img {
-            width: 100%;
-            height: 100%;
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: blue;
+        user-select: none;
+        span {
+            color: red;
         }
     }
 
@@ -24,11 +25,30 @@ header {
         display: flex;
         justify-content: flex-end;
 
+        .basket {
+            position: relative;
+
+            .basket-count {
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 1.5rem;
+                width: 1.5rem;
+                background-color: red;
+                border-radius: 50rem;
+                font-size: 1rem;
+                font-weight: 700;
+                color: #fff;
+            }
+        }
+
+
         a {
             width: 50px;
-            padding: 0.5rem .7rem;
             margin-right: .5rem;
-            border: 1px solid #000000;
             text-decoration: none;
             color: #000000;
             text-align: center;
@@ -37,6 +57,10 @@ header {
                 width: 100%;
                 height: 100%;
             }
+        }
+
+        .btn {
+            cursor: pointer;
         }
     }
 }
@@ -61,90 +85,14 @@ nav {
             background-color: #f5f5f5;
             color: #666666;
         }
-        .active_link {
-            background-color: #f5f5f5;
-            color: #000000;
-            font-weight: 700;
-        }
         .nav_li_catalog {
             background-color: #ffde2296;
             border-color: #ffde22ef;
             color: #666666;
-            position: relative;
-            display: block;
-            .btn {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .dropdown {
-                display: none;
-                width: calc(100% + 2px);
-                position: absolute;
-                z-index: 10;
-                padding: .7rem 0;
-                background-color: #f5f5f5;
-
-                a {
-                    width: 100%;
-                    display: block;
-                    padding: .5rem .5rem;
-                    text-decoration: none;
-                    font-weight: normal;
-                    color: #000000;
-                    text-transform: capitalize;
-                    cursor: pointer;
-                }
-                a:hover {
-                    background-color: #dadada;
-                }
-            }
         }
         .nav_li_catalog:hover {
-            background-color: #ffdd22;            
-            font-weight: 700;
+            background-color: #ffdd22;
             color: #000000;
-            .dropdown {display: block;}
         }
     }
-}
-
-.nav_li_catalog {
-    position: relative;
-    display: flex;
-    .btn {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        z-index: 10;
-        padding: .7rem 0;
-        background-color: #f5f5f5;
-
-        a {
-            width: 100%;
-            display: block;
-            padding: .5rem .5rem;
-            text-decoration: none;
-            font-weight: normal;
-            color: #000000;
-            text-transform: capitalize;
-            cursor: pointer;
-            border: none;
-        }
-        a:hover {
-            background-color: #dadada;
-        }
-    }
-}
-.nav_li_catalog:hover {
-    .dropdown {display: block;}
 }

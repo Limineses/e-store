@@ -10,10 +10,33 @@
         height: 70vh;
         overflow-x: auto;
         padding: 0 3rem;
-        h2 {
-            margin-bottom: .5rem;
+        .step-1 {
+            .address-form {
+                width: 50%;
+                position: relative;
+                left: 50%;
+                transform: translate(-50%, 10%);
+            }
+        }
+        .step-2 {
+            .card-form {
+                transform: translate(0, 20%);
+                label {
+                    position: relative;
+                    top: 1rem;
+                }
+            }
         }
         .step-3 {
+            .address {
+                margin-bottom: .5rem;
+            }
+            .address, .card {
+                font-size: 1.2rem;
+                span {
+                    font-weight: 700;
+                }
+            }
             .total {        
                 display: flex;
                 justify-content: space-between;

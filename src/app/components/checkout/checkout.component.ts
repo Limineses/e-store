@@ -19,8 +19,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   basket!: Basket;
   user!: User;
 
-  emptyAddress = false;
-  emptyCard = false;
+  saveAddress = false;
+  saveCard = false;
 
   addressForm!: FormGroup;
   cardForm!: FormGroup;
@@ -40,8 +40,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const userServiceSubscription = this.userService.getUser()
       .subscribe(data => this.user = data);
     this.subscriptions.add(userServiceSubscription);
-    this.emptyAddress = this.user.address.city === '' ? true : false;
-    this.emptyCard = this.user.card.number === '' ? true : false;
   }
 
   addressFormChanged(form: FormGroup): void {
@@ -76,8 +74,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }, 1000);
     this.userService.setArchive(this.basket.items);
     this.basketService.deleteAll();
-    if (this.emptyAddress) { this.userService.setAddress(this.addressForm.value); }
-    if (this.emptyCard) { this.userService.setCard(this.cardForm.value); }
+    if (this.saveAddress) { this.userService.setAddress(this.addressForm.value); }
+    if (this.saveCard) { this.userService.setCard(this.cardForm.value); }
   }
 
   ngOnDestroy(): void {

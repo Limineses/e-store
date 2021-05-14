@@ -1,0 +1,58 @@
+.notification {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 3%;    
+    background-color: #fddd3a;
+    border-radius: 1rem 1rem 0 0;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 10;
+    user-select: none;
+    .disabled {
+        opacity: .5;
+        cursor: auto;
+        color: rgb(125, 125, 125);
+    }
+    .front {
+        display: flex;
+        align-items: center;
+        .notification-message {
+            padding: .7rem 1rem;
+            flex-shrink: 0;
+            border-right: 1px solid #929292;
+            border-top-left-radius: 1rem;
+        }
+        .delete {
+            width: 3rem;
+            height: 100%;            
+            padding: .7rem 1rem;
+            background: url('../../../../assets/icons/compare-delete-all.svg') center center no-repeat;
+            background-size: 70%;
+            border-top-right-radius: 1rem;
+        }
+        .notification-message:hover{
+            opacity: .5
+        }
+        .delete:hover{
+            opacity: .5
+        }
+    }
+    .confirm {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1rem 1rem 0 0;
+        background-color: #ed1c1c;
+        color: #fff;
+        transition: .3s ease left;
+    }
+    .confirm:hover {
+        background-color: #ff5151;
+    }
+}

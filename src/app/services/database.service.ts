@@ -1,3 +1,4 @@
+import { Reviews } from './../models/reviews';
 import { ArchiveItem } from './../models/archiveItem';
 import { Card } from './../models/card';
 import { Address } from './../models/address';
@@ -26,6 +27,10 @@ export class DatabaseService {
     return this.db.object<Product>(`products/${id}`).valueChanges();
   }
 
+  setReviews(id: number, rev: Reviews): void {
+    this.db.object<Reviews>(`products/${id}/reviews`).set(rev);
+  }
+
   getFilters(): Observable<Filter[]> {
     return this.db.list<Filter>('/filters').valueChanges();
   }
@@ -34,22 +39,20 @@ export class DatabaseService {
     return this.db.object<Basket>(`baskets/${id}`).valueChanges();
   }
 
-  addBasket(basket: Basket): void {
-    this.db.list<Basket>('/baskets').push(basket).then(data => {
-      const key = data.key;
-      if (key) {
-        this.db.object<Basket>(`/baskets/${key}`).update({id: key});
-        localStorage.setItem('EStore-basket', key);
-      }
-    });
+  addBasket(basket: Basket, id: number): void {
+    this.db.object<Basket>(`/baskets/${id}`).set(basket);
   }
 
   refreshBasket(basket: Basket): void {
     this.db.object<Basket>(`baskets/${basket.id}`).set(basket);
   }
 
-  setArchive(userId: string, archive: ArchiveItem[]): void {
-    this.db.object<ArchiveItem[]>(`users/${userId}/archive`).set(archive);
+  getUser(id: string): Observable<any> {
+    return this.db.object<User>(`/users/${id}`).valueChanges();
+  }
+
+  setBasket(userId: string, basketId: string): void {
+    this.db.object(`/users/${userId}/basket`).set(basketId);
   }
 
   addUser(user: User): void {
@@ -64,8 +67,7 @@ export class DatabaseService {
     this.db.object<Card>(`/users/${userId}/card`).set(card);
   }
 
-  getUser(id: string): Observable<any> {
-    return this.db.object<User>(`/users/${id}`).valueChanges();
+  setArchive(userId: string, archive: ArchiveItem[]): void {
+    this.db.object<ArchiveItem[]>(`users/${userId}/archive`).set(archive);
   }
-
 }

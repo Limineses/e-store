@@ -6,7 +6,7 @@ section {
 
     .content-wrapper {
         width: 40vw;
-        height: 50vh;
+        min-height: 50vh;
         box-shadow: 0px 0px 5px rgb(153, 153, 153);        
         border: 1px solid rgb(123, 123, 123);
         .tabs {
@@ -40,31 +40,67 @@ section {
         .content {
             padding: 10% 20%;
 
-            div {
+            form {
                 display: flex;
                 flex-direction: column;
 
                 label {
-                    margin-bottom: .3rem;
+                    height: 4.5rem;
+                    margin-bottom: 1.3rem;
+                    input {
+                        width: 100%;
+                        padding: .2rem .5rem;
+                        margin: .3rem 0;
+                        font-size: 1.2rem;
+                    }
                 }
 
-                input {
-                    padding: .2rem .5rem;
-                    margin-bottom: 2rem;
-                    font-size: 1.2rem;
-                }
 
-                button {
+                input[type="submit"] {
                     padding: .5rem 0;
                     font-size: 1.5rem;
                     color: #fff;
                     background-color: rgb(72, 69, 255);
                     border: none;
                     border-radius: 50rem;
-                }
-                button:hover {
-                    opacity: .7;
                     cursor: pointer;
+                }
+                input[type="submit"]:hover {
+                    opacity: .7;
+                }
+                input[disabled] {
+                    opacity: .7;
+                    cursor: auto;
+                }
+
+                .auth-with-google {
+                    width: 100%;
+                    height: 3rem;
+                    margin-top: 3rem;
+                    background: url('../../../assets/images/google.png') no-repeat left center #e6e6e6;
+                    background-size: contain;
+                    border: none;
+                    border-radius: 50rem;
+                    font-size: 1.2rem;
+                    box-shadow: 3px 3px 10px #b6b5b5;
+                    cursor: pointer;
+                }
+                .auth-with-google:hover {
+                    opacity: .7;
+                }
+                .ng-valid.ng-dirty {
+                    border: 2px solid green;
+                }
+                .ng-invalid.ng-dirty {
+                    border: 2px solid red;
+                }
+                .not-match {
+                    border: 2px solid red!important;
+                }
+                .error-message {
+                    margin-top: 5px;
+                    font-size: .8rem;
+                    color: red;
                 }
             }
 

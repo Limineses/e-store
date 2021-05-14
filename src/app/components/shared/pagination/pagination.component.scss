@@ -1,0 +1,34 @@
+.content {
+    .wrapper {
+        display: flex;
+        justify-content: center;
+    
+        .page, .dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: .5rem;
+            margin-left: .3rem;
+            font-size: 1.3rem;
+            color: rgb(210, 210, 210);
+            border-radius: 50%;
+            background-color: rgb(245, 245, 245);
+            user-select: none;
+        }
+        .page:hover {
+            color: #000;
+            background-color: rgb(220, 220, 220);
+            cursor: pointer;
+        }
+        .active {
+            color: #000;
+            background-color: rgb(220, 220, 220);
+        }
+        .side {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

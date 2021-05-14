@@ -4,7 +4,8 @@
         <input #searchBox (input)="search(searchBox.value)">
         <div class="search-clear"
              [class.search-clear-show]="searchBox.value"
-             (click)="clear(searchBox)">&times;</div>
+             (click)="clear(searchBox)"
+        >&times;</div>
     </div>
     
     <ul class="search-result">

@@ -1,0 +1,60 @@
+<div>
+    <form [formGroup]="form">
+        <div class="front-side">
+            <label>Number
+                <input 
+                    type="text"
+                    maxlength="19" 
+                    formControlName="number"
+                    (keydown)="checkNumbers($event)"
+                    [value]="numberFormat()"
+                    placeholder="0000 0000 0000 0000">
+                    <span class="error-message" *ngIf="form.controls.number.invalid && form.controls.number.dirty">
+                        Number badly formatted. 
+                    </span>
+            </label>
+            <div>
+                <label>Holder
+                    <input
+                        class="holder"
+                        type="text"
+                        maxlength="25"
+                        formControlName="holder"
+                        placeholder="NAME SURNAME">
+                        <span class="error-message" *ngIf="form.controls.holder.invalid && form.controls.holder.dirty">
+                            Holder badly formatted. 
+                        </span>
+                </label>
+                <label class="date">Date
+                    <input 
+                        type="text"
+                        maxlength="5"
+                        formControlName="date"
+                        (keydown)="checkNumbers($event)"
+                        [value]="dateFormat()"
+                        placeholder="MM/YY">
+                        <span class="error-message" *ngIf="form.controls.date.hasError('month') && form.controls.date.dirty">
+                            Month badly formatted. 
+                        </span>
+                        <span class="error-message" *ngIf="form.controls.date.hasError('year') && form.controls.date.dirty">
+                            Year badly formatted. 
+                        </span>
+                </label>
+            </div>
+        </div>
+        <div class="back-side">
+            <div class="line"></div>
+            <label>CVV
+                <input 
+                    type="text"
+                    maxlength="3"
+                    (keydown)="checkNumbers($event)"
+                    formControlName="cvv" 
+                    placeholder="000">
+                    <span class="error-message" *ngIf="form.controls.cvv.invalid && form.controls.cvv.dirty">
+                        CVV badly formatted. 
+                    </span>
+            </label>
+        </div>
+    </form>
+</div>

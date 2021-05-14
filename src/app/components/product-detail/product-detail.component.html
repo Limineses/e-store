@@ -1,4 +1,3 @@
-<!-- <section *ngIf="product"> -->
 <section>
     <h1>{{product.model}} <span>{{product.price}}$</span></h1>
     <div class="short-description">
@@ -26,10 +25,17 @@
                     (click)="addInBasket(product)" 
                     class="basket basket-remove"></button>
 
-                <button class="favorites"></button>
-
                 <button *ngIf="!checkCompare(product.id)" (click)="addInCompare(product)" class="compare"></button>
                 <button *ngIf="checkCompare(product.id)" (click)="deleteFromCompare(product.id)" class="compare compare-delete"></button>
+            </div>
+            <div class="reviews">
+                <div class="rating" *ngIf="product.reviews">
+                    <app-view-rating [rating]="product.reviews.totalRating"></app-view-rating>
+                </div>
+                <a routerLink="/reviews/{{product.id}}" class="reviews-link">
+                    <span *ngIf="!product.reviews">Write a review first!</span>
+                    <span *ngIf="product.reviews">{{product.reviews.reviewsItems.length}} reviews</span>
+                </a>
             </div>
         </div>
     </div>

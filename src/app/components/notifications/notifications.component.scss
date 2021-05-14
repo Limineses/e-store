@@ -1,0 +1,27 @@
+.content {
+    position: fixed;
+    right: 0;
+    z-index: 20;
+    .container {
+        height: 25vh;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        overflow: hidden;
+        
+        div {
+            width: 17rem;
+            height: 19%;
+            margin-bottom: 1%;
+            padding: 1rem 2rem 1rem;
+            background-color: rgb(240, 240, 240);
+            border-radius: 1rem 0 0 1rem;
+            box-shadow: 2px 2px 3px rgb(120, 120, 120);
+            font-size: .8rem;
+            font-weight: 700;
+        }
+
+        .warning {color: red;}
+        .notify {color: green;}
+    }
+}

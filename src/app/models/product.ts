@@ -1,3 +1,5 @@
+import { Reviews } from './reviews';
+
 export interface Product {
     id: number;
     category: string;
@@ -7,6 +9,6 @@ export interface Product {
     releaseYear: number;
     description: string;
     images: string[];
-    // technicalSpecifications: object;
+    reviews: Reviews;
     technicalSpecifications: Map<string, Map<string, string>>;
 }

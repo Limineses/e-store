@@ -1,10 +1,11 @@
-import { CompareService } from './../../services/compare.service';
-import { BasketService } from './../../services/basket.service';
+import { CompareService } from '../../services/compare.service';
+import { BasketService } from '../../services/basket.service';
 import { Component, OnDestroy, OnInit, ElementRef, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Product } from './../../models/product';
+import { Subscription } from 'rxjs';
+import { Product } from '../../models/product';
 import { ActivatedRoute } from '@angular/router';
-import { DatabaseService } from './../../services/database.service';
+import { DatabaseService } from '../../services/database.service';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,11 +13,14 @@ import { DatabaseService } from './../../services/database.service';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+
   @ViewChild('list') list!: ElementRef;
   @ViewChild('images') images!: ElementRef;
+
   sliderWidth!: number;
   product!: any;
-  // subscriptions!: Subscription;
+
+  subscriptions!: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
               private databaseService: DatabaseService,
@@ -25,25 +29,10 @@ export class ProductDetailComponent implements OnInit, AfterViewInit, OnDestroy 
               private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    // this.id = this.activatedRoute.snapshot.params['id'];
-    //params.subscribe(res => {
-      // resizeBy.id.getProduct
-      //switchmap
-    // })
-    //this.subscriptions = this.activatedRoute....
-    const routeParams: Subscription = this.activatedRoute.params.subscribe(params => {
-      this.getProduct(Number(params.id));
-    });
-    // const routeParams: Subscription = this.activatedRoute.params.subscribe(params => {
-    //   this.getProduct(Number(params.id));
-    // });
-    // this.subscriptions.add(routeParams);
-  }
-
-  getProduct(id: number): void {
-    this.databaseService.getProduct(id).subscribe(product => {
-      this.product = product;
-    });
+    this.subscriptions = this.activatedRoute.params.pipe(
+      switchMap(params => this.databaseService.getProduct(Number(params.id))),
+      tap(data => this.product = data)
+    ).subscribe();
   }
 
   move(index: number): void {
@@ -88,9 +77,11 @@ export class ProductDetailComponent implements OnInit, AfterViewInit, OnDestroy 
   ngAfterViewInit(): void {
     const slider = this.renderer.parentNode(this.list.nativeElement);
     this.sliderWidth = slider.offsetWidth;
+    window.addEventListener('resize', () => this.sliderWidth = slider.offsetWidth);
   }
 
   ngOnDestroy(): void {
-    // this.subscriptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
+
 }
